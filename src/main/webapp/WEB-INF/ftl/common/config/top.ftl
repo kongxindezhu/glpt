@@ -79,7 +79,7 @@
 					</ul>
 				</li>	
 				</@shiro.hasAnyRoles>   
-				<li>
+				<!-- <li>
 					<a class="dropdown-toggle" target="_blank" href="http://www.sojson.com/tag_shiro.html" target="_blank">
 						Shiro相关博客<span class="collapsing"></span>
 					</a>
@@ -93,11 +93,11 @@
 					<a class="dropdown-toggle" href="http://www.sojson.com/jc/shiro.html" target="_blank">
 						Shiro Demo 其他版本<span class="collapsing"></span>
 					</a>
-				</li>	          
+				</li> -->	          
 	          </ul>
 	           <ul class="nav navbar-nav  pull-right" >
 				<li class="dropdown ${(index==10)?string('active','')}" style="color:#fff;">
-					<a aria-expanded="false" aria-haspopup="true"  role="button" data-toggle="dropdown">  
+					<a aria-expanded="false" aria-haspopup="true"  role="button" data-toggle="dropdown" 
 						<@shiro.user>  
 							onclick="location.href='${basePath}/user/index.shtml'" href="${basePath}/user/index.shtml" class="dropdown-toggle qqlogin" >
 							${token.nickname?default('阿西吧')}<span class="caret"></span></a>
