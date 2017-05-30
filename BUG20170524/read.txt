@@ -1,0 +1,5 @@
+1.登录准备：
+启动PHPmyadmin数据库shiro_demo；
+启动redis服务，双击D:\Program Files\redis-2.4.5-win32-win64\64bit下面redis-server.exe。
+2.启动tomcat，浏览器中输入：http://localhost:8080/shiro.demo
+用户名：admin  密码：sojson
