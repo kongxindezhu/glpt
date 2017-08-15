@@ -1,5 +1,6 @@
 package com.sojson.common.controller;
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -8,6 +9,7 @@ import java.util.Set;
 import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -15,6 +17,7 @@ import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.alibaba.fastjson.JSON;
 import com.sojson.common.utils.StringUtils;
 
 /**
@@ -129,6 +132,25 @@ public class BaseController {
 			}
 		}
 		return result;
+	}
+	
+	/**
+	 * 返回json字符串
+	 * @param obj
+	 * @param response
+	 */
+	public void writeResponse(Object obj,HttpServletResponse response){
+		try {
+			response.setContentType("text/html;charset=utf-8");
+			String str = JSON.toJSONString(obj);
+			PrintWriter writer;
+			writer = response.getWriter();
+			writer.write(str);
+			writer.flush();
+			writer.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }
