@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sojson.common.dao.UDicItemMapper" >
+  <resultMap id="BaseResultMap" type="com.sojson.common.model.UDicItem" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="itemId" property="itemId" jdbcType="VARCHAR" />
+    <result column="itemName" property="itemName" jdbcType="VARCHAR" />
+    <result column="catalogId" property="catalogId" jdbcType="VARCHAR" />
+    <association property="uDicCatalog" column="catalogId" javaType="com.sojson.common.model.UDicCatalog">
+    	<result column="catalogId" property="catalogId" jdbcType="VARCHAR" />
+    	<result column="catalogName" property="catalogName" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    i.*,c.*
+  </sql>
+  
+  <sql id="limit_sql">
+  	   <if test="page_sql != null and page_sql != ''">
+      	${page_sql}
+      </if>
+  </sql>
+  
+  <sql id="where_all">
+  	<where>
+  	<if test="findContent != null and findContent !='' " >
+        and (
+        LOWER(itemId) like CONCAT("%",#{findContent,jdbcType=VARCHAR},"%") or
+        LOWER(itemName) like CONCAT("%",#{findContent,jdbcType=VARCHAR},"%")
+        )
+      </if>
+      </where>
+  </sql>
+  
+  <!-- 普通的分页查询 -->
+  <select id="findAll" resultMap="BaseResultMap" >
+  	 select 
+    <include refid="Base_Column_List" />
+    from u_dic_item i left join u_dic_catalog c on i.catalogId = c.catalogId
+    <include refid="where_all"/>
+    <include refid="limit_sql" />
+  </select>
+  <select id="findCount" resultMap="BaseResultMap" >
+ 	 select count(id) from u_dic_item
+  	<include refid="where_all" />
+  </select>
+  
+  <!-- 新增单条记录 -->
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.sojson.common.model.UDicItem" >
+    insert into u_dic_item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="itemId != null" >
+        itemId,
+      </if>
+      <if test="itemName != null" >
+        itemName,
+      </if>
+      <if test="catalogId != null" >
+        catalogId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="itemId != null" >
+        #{itemId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemName != null" >
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="catalogId != null" >
+        #{catalogId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+<!-- 
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from u_dic_catalog
+    where id = #{id,jdbcType=BIGINT}
+  </delete> -->
+
+</mapper>
