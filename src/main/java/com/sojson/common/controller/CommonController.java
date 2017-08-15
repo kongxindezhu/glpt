@@ -175,6 +175,7 @@ public class CommonController extends BaseController {
 	 * 踢出页面
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value="kickedOut",method=RequestMethod.GET)
 	public ModelAndView kickedOut(HttpServletRequest request,UrlPathHelper pp){
 		//如果是踢出后，来源地址是：http://shiro.itboy.net/u/login.shtml;JSESSIONID=4f1538d9-df19-48c8-b4b1-aadacadde23a

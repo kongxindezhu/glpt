@@ -88,6 +88,7 @@ public class BaseController {
 		BaseController.pageSize = pageSize;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public ModelAndView redirect(String redirectUrl,Map<String,Object>...parament){
 		ModelAndView view = new ModelAndView(new RedirectView(redirectUrl));
 		if(null != parament && parament.length > 0){
