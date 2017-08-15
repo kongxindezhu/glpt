@@ -1,5 +1,9 @@
 package com.sojson.user.controller;
+import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -10,10 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.sojson.common.controller.BaseController;
 import com.sojson.common.model.UDicCatalog;
-import com.sojson.common.model.UPermission;
-import com.sojson.common.utils.LoggerUtils;
 import com.sojson.core.mybatis.page.Pagination;
 import com.sojson.user.service.UDicCatalogService;
 
@@ -39,7 +42,7 @@ public class DicCatalogController extends BaseController {
 	@ResponseBody
 	public Map<String,Object> addDicCatalog(UDicCatalog uDicCatalog){
 		try {
-			UDicCatalog entity = uDicService.insert(uDicCatalog);
+			UDicCatalog entity = uDicService.insertSelective(uDicCatalog);
 			resultMap.put("status", 200);
 			resultMap.put("entity", entity);
 		} catch (Exception e) {
@@ -49,4 +52,20 @@ public class DicCatalogController extends BaseController {
 		return resultMap;
 	}
 	
+	@RequestMapping(value="deleteDicCatalogById",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> deleteDicCatalogById(String ids){
+		return uDicService.deleteDicCatalogById(ids);
+	}
+	
+	/**
+	 * 查询所有的字典类别列表
+	 */
+	@RequestMapping(value="queryCatalogList",method=RequestMethod.GET)
+	public void queryCatalogList(HttpServletRequest request,HttpServletResponse response){
+		JSONObject obj = new JSONObject();
+		List<UDicCatalog> res = uDicService.queryCatalogList();
+		obj.put("catalogList", res);
+		writeResponse(obj,response);
+	}
 }

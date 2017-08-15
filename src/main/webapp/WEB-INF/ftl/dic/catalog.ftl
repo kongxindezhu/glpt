@@ -17,12 +17,12 @@
 				//初始化全选。
 				so.checkBoxInit('#checkAll','[check=box]');
 				
-				<@shiro.hasPermission name="/role/deleteRoleById.shtml">
+				<@shiro.hasPermission name="/dic/deleteDicCatalogById.shtml">
 				//全选
 				so.id('deleteAll').on('click',function(){
 					var checkeds = $('[check=box]:checked');
 					if(!checkeds.length){
-						return layer.msg('请选择要删除的选项。',so.default),!0;
+						return layer.msg('请选择要删除的选项。',so.Default),!0;
 					}
 					var array = [];
 					checkeds.each(function(){
@@ -32,15 +32,15 @@
 				});
 				</@shiro.hasPermission>
 			});
-			<@shiro.hasPermission name="/role/deleteRoleById.shtml">
+			<@shiro.hasPermission name="/dic/deleteDicCatalogById.shtml">
 			<#--根据ID数组删除角色-->
 			function deleteById(ids){
 				var index = layer.confirm("确定这"+ ids.length +"个字典类别？",function(){
 					var load = layer.load();
-					$.post('${basePath}/role/deleteRoleById.shtml',{ids:ids.join(',')},function(result){
+					$.post('${basePath}/dic/deleteDicCatalogById.shtml',{ids:ids.join(',')},function(result){
 						layer.close(load);
 						if(result && result.status != 200){
-							return layer.msg(result.message,so.default),!0;
+							return layer.msg(result.message,so.Default),!0;
 						}else{
 							layer.msg(result.resultMsg);
 							setTimeout(function(){
@@ -61,10 +61,10 @@
 					return layer.msg('类型Id为数字字母。',so.default),!1;
 				} */
 				if($.trim(catalogId) == ''){
-					return layer.msg('类型Id不能为空。',so.default),!1;
+					return layer.msg('类型Id不能为空。',so.Default),!1;
 				}
 				if($.trim(catalogName) == ''){
-					return layer.msg('类型名称不能为空。',so.default),!1;
+					return layer.msg('类型名称不能为空。',so.Default),!1;
 				}
 				
 				<#--loding-->
@@ -72,7 +72,7 @@
 				$.post('${basePath}/dic/addDicCatalog.shtml',{catalogId:catalogId,catalogName:catalogName},function(result){
 					layer.close(load);
 					if(result && result.status != 200){
-						return layer.msg(result.message,so.default),!1;
+						return layer.msg(result.message,so.Default),!1;
 					}
 					layer.msg('添加成功。');
 					setTimeout(function(){
@@ -104,14 +104,15 @@
 				         	<@shiro.hasPermission name="/dic/addDicCatalog.shtml">
 				         		<a class="btn btn-success" onclick="$('#add').modal();">增加类别</a>
 				         	</@shiro.hasPermission>
-				         	<!-- <@shiro.hasPermission name="/role/deleteRoleById.shtml">
+				         	<@shiro.hasPermission name="/dic/deleteDicCatalogById.shtml">
 				         		<button type="button" id="deleteAll" class="btn  btn-danger">删除</button>
-				         	</@shiro.hasPermission> -->
+				         	</@shiro.hasPermission>
 				         </span>    
 				        </div>
 					<hr>
 					<table class="table table-bordered">
 						<tr>
+							<th><input type="checkbox" id="checkAll"/></th>
 							<th>类别ID</th>
 							<th>类别名称</th>
 							<th>操作</th>
@@ -119,6 +120,7 @@
 						<#if page?exists && page.list?size gt 0 >
 							<#list page.list as it>
 								<tr>
+									<td><input value="${it.id}" check='box' type="checkbox" /></td>
 									<td>${it.catalogId?default('-')}</td>
 									<td>${it.catalogName?default('-')}</td>
 									<td>

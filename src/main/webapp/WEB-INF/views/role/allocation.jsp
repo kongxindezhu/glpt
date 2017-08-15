@@ -136,8 +136,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  </shiro:hasPermission>
 						 <shiro:hasPermission name="/role/allocation.shtml">
 						  <li class="active dropdown">
-						      <a href="<%=basePath%>/role/allocation.shtml" title="角色分配（这是个JSP页面）">
-						    	 <i class="glyphicon glyphicon-chevron-right"></i>角色分配（这是个JSP页面）
+						      <a href="<%=basePath%>/role/allocation.shtml" title="角色分配(JSP)">
+						    	 <i class="glyphicon glyphicon-chevron-right"></i>角色分配(JSP)
 						      </a>
 						  </li>
 						  </shiro:hasPermission>
@@ -159,7 +159,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</shiro:hasAnyRoles>  
 				<div class="col-md-10">
-					<h2>用户角色分配（这是个JSP页面）</h2>
+					<h2>用户角色分配(JSP)</h2>
 					<hr>
 					<form method="post" action="" id="formId" class="form-inline">
 						<div clss="well">

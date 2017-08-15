@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sojson.common.dao.UDicCatalogMapper" >
+  <!-- 返回所有的字段 -->
   <resultMap id="BaseResultMap" type="com.sojson.common.model.UDicCatalog" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="catalogId" property="catalogId" jdbcType="VARCHAR" />
     <result column="catalogName" property="catalogName" jdbcType="VARCHAR" />
-    <result column="catalogType" property="catalogType" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <!-- 字段列表 -->
   <sql id="Base_Column_List" >
-    id, catalogId,catalogName, catalogType
+    id, catalogId,catalogName
   </sql>
   
+  <!-- 分页 -->
   <sql id="limit_sql">
   	   <if test="page_sql != null and page_sql != ''">
       	${page_sql}
       </if>
   </sql>
   
+  <!-- 查询条件 -->
   <sql id="where_all">
   	<where>
   	<if test="findContent != null and findContent !='' " >
@@ -24,14 +28,9 @@
         LOWER(catalogId) like CONCAT("%",#{findContent,jdbcType=VARCHAR},"%") or
         LOWER(catalogName) like CONCAT("%",#{findContent,jdbcType=VARCHAR},"%")
         )
-      </if>
-      </where>
+     </if>
+     </where>
   </sql>
-  <!-- <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.sojson.common.model.UDicCatalog" >
-    insert into u_dic_catalog (id, catalogId, catalogName)
-    values (#{id,jdbcType=BIGINT}, #{catalogId,jdbcType=VARCHAR}, #{catalogName,jdbcType=VARCHAR})
-  </insert> -->
-  
   
   <!-- 普通的分页查询 -->
   <select id="findAll" resultMap="BaseResultMap" >
@@ -46,15 +45,43 @@
   	<include refid="where_all" />
   </select>
   
-
+  <!-- 新增字典类别 -->
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.sojson.common.model.UDicCatalog" >
+    insert into u_dic_catalog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="catalogId != null" >
+        catalogId,
+      </if>
+      <if test="catalogName != null" >
+        catalogName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="catalogId != null" >
+        #{catalogId,jdbcType=VARCHAR},
+      </if>
+      <if test="catalogName != null" >
+        #{catalogName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
   
+  <!-- 根据主键删除记录 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from u_dic_catalog
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
 
-  
-
-   
-   
-   
-
-
-
+  <!-- 查询所有的字典类别 -->
+  <select id="queryCatalogList" resultMap="BaseResultMap" >
+  	select 
+    <include refid="Base_Column_List" />
+    from u_dic_catalog 
+   </select>
 </mapper>

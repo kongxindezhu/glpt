@@ -2,13 +2,29 @@ package com.sojson.common.model;
 
 import java.io.Serializable;
 
+/**
+ * 字典类别实体类
+ * @author huanjun
+ *
+ */
 public class UDicCatalog implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * 自增主键
+	 */
 	private Integer id;
+	
+	/**
+	 * 字典类别ID
+	 */
 	private String catalogId;
+	
+	/**
+	 * 字典类别名称
+	 */
 	private String catalogName;
-	private String catalogType;
+
 	public Integer getId() {
 		return id;
 	}
@@ -26,11 +42,5 @@ public class UDicCatalog implements Serializable{
 	}
 	public void setCatalogName(String catalogName) {
 		this.catalogName = catalogName;
-	}
-	public String getCatalogType() {
-		return catalogType;
-	}
-	public void setCatalogType(String catalogType) {
-		this.catalogType = catalogType;
 	}
 }

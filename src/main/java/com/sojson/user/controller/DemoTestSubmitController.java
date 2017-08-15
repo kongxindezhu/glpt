@@ -1,8 +1,10 @@
 package com.sojson.user.controller;
 
+import java.io.PrintWriter;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.context.annotation.Scope;
@@ -10,15 +12,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.sojson.common.controller.BaseController;
 import com.sojson.common.utils.MathUtil;
 import com.sojson.user.bo.SubmitDto;
 
 @Controller
 @Scope(value="prototype")
-@RequestMapping("demo")
+@RequestMapping("open")
 public class DemoTestSubmitController extends BaseController {
 	
 	final static String OUT_MAP = DemoTestSubmitController.class.getCanonicalName() + "_outMap"; 
@@ -68,5 +75,41 @@ public class DemoTestSubmitController extends BaseController {
 		return dto ;
 	}
 	
+	@RequestMapping(value="test/api",method=RequestMethod.GET)
+	public void testApi(HttpServletRequest request,HttpServletResponse response){
+		JSONObject obj = new JSONObject();
+		obj.put("key1", "value1");
+		writeResponse(obj,response);
+	}
 	
+	@RequestMapping(value="test/api1",method=RequestMethod.GET)
+	public @ResponseBody JSONObject testApi1(HttpServletRequest request,HttpServletResponse response){
+		JSONObject obj = new JSONObject();
+		obj.put("key2", "value2");
+		return obj;
+	}
+	
+	@RequestMapping(value="test/api3",method=RequestMethod.GET)
+	public @ResponseBody JSONObject testApi3(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value="name",required=true)String name){
+		JSONObject obj = new JSONObject();
+		obj.put("key3", "value3");
+		obj.put("name3", "name");
+		return obj;
+	}
+	
+	public void writeResponse(Object obj,HttpServletResponse response){
+		try {
+			response.setContentType("text/html;charset=utf-8");
+			String str = JSON.toJSONString(obj);
+			PrintWriter writer;
+			writer = response.getWriter();
+			writer.write(str);
+			writer.flush();
+			writer.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
