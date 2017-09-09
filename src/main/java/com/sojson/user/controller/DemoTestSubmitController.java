@@ -75,23 +75,57 @@ public class DemoTestSubmitController extends BaseController {
 		return dto ;
 	}
 	
-	@RequestMapping(value="test/api",method=RequestMethod.GET)
+	/*@RequestMapping(value="test/api",method=RequestMethod.GET)
 	public void testApi(HttpServletRequest request,HttpServletResponse response){
 		JSONObject obj = new JSONObject();
 		obj.put("key1", "value1");
 		writeResponse(obj,response);
-	}
+	}*/
 	
+	/**
+	 * 测试GET请求
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping(value="test/api1",method=RequestMethod.GET)
 	public @ResponseBody JSONObject testApi1(HttpServletRequest request,HttpServletResponse response){
+		JSONObject data = new JSONObject();
+		data.put("name1", request.getParameter("name"));
+		data.put("company1", request.getParameter("company"));
+		data.put("method1", "this is a get method");
+		
 		JSONObject obj = new JSONObject();
-		obj.put("key2", "value2");
+		obj.put("rc", 0);
+		obj.put("data", data);
+		obj.put("msg", "call success");
+		return obj;
+	}
+	
+	/**
+	 * 测试POST请求
+	 * @param request
+	 * @param response
+	 * @param name
+	 * @return
+	 */
+	@RequestMapping(value="test/api2",method=RequestMethod.POST)
+	public @ResponseBody JSONObject testApi3(HttpServletRequest request,
+			HttpServletResponse response){
+		JSONObject data = new JSONObject();
+		data.put("name2", request.getParameter("name"));
+		data.put("company2", request.getParameter("company"));
+		data.put("method2", "this is a post method");
+		
+		JSONObject obj = new JSONObject();
+		obj.put("rc", 0);
+		obj.put("data", data);
+		obj.put("msg", "call success");
 		return obj;
 	}
 	
 	@RequestMapping(value="test/api3",method=RequestMethod.GET)
-	public @ResponseBody JSONObject testApi3(HttpServletRequest request,
-			HttpServletResponse response,
+	public @ResponseBody JSONObject testApi4(HttpServletRequest request,HttpServletResponse response,
 			@RequestParam(value="name",required=true)String name){
 		JSONObject obj = new JSONObject();
 		obj.put("key3", "value3");
