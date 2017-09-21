@@ -31,7 +31,7 @@
 		so.id = function(id){
 			return o('#' + id);
 		}
-		so.default = function(){}
+		so.Default = function(){}
 		
 	})(so);
 })($,window);

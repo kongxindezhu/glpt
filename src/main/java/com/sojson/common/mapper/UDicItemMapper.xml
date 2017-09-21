@@ -84,4 +84,12 @@
     where id = #{id,jdbcType=BIGINT}
   </delete> -->
 
+  <!-- 根据catalogId查询对应的子项列表-->
+  <select id="queryDicItemByCatalogId" parameterType="string" resultMap="BaseResultMap" >
+  	select 
+    id,itemId,itemName,catalogId
+    from u_dic_item 
+    where catalogId=#{catalogId}
+  </select>
+
 </mapper>

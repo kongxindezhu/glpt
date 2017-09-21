@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sojson.common.dao.AppUserInfoMapper" >
+  <!-- 返回所有的字段 -->
+  <resultMap id="BaseResultMap" type="com.sojson.common.model.AppUserInfo" >
+    <id column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="degree" property="degree" jdbcType="VARCHAR" />
+    <result column="occupation" property="occupation" jdbcType="VARCHAR" />
+    <result column="portrait" property="portrait" jdbcType="VARCHAR" />
+    <result column="regDevice" property="regDevice" jdbcType="VARCHAR" />
+    <result column="regTime" property="regTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    uuid,nickname,phone,email,sex,degree,occupation,portrait,regDevice,regTime
+  </sql>
+  
+  <!-- 根据手机号码查询用户信息-->
+  <select id="queryUserInfoByPhone" parameterType="string" resultType="com.sojson.common.model.AppUserInfo" >
+  	select 
+    <include refid="Base_Column_List" />
+    from app_user_info 
+    where phone=#{phone}
+  </select>
+  
+  <!-- 新增用户(基础信息) -->
+  <insert id="insertUserInfo" parameterType="com.sojson.common.model.AppUserInfo" keyProperty="uuid"> 
+        insert into app_user_info(uuid,phone,regDevice,regTime)  
+             values(#{uuid},#{phone},#{regDevice},#{regTime})  
+  </insert>
+  
+  <!-- 补全用户信息 -->
+  <update id="updateUserInfo" parameterType="com.sojson.common.model.AppUserInfo" >
+        update app_user_info set nickname=#{nickname},email=#{email},sex=#{sex},degree=#{degree},occupation=#{occupation},portrait=#{portrait} where phone=#{phone}
+  </update>
+</mapper>

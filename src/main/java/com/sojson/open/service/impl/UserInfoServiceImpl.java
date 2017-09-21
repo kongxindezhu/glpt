@@ -1,13 +1,71 @@
 package com.sojson.open.service.impl;
 
+import java.sql.Timestamp;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sojson.common.dao.UDicCatalogMapper;
+import com.sojson.common.dao.AppUserInfoMapper;
+import com.sojson.common.model.AppUserInfo;
+import com.sojson.common.utils.UuidUtil;
 import com.sojson.core.mybatis.BaseMybatisDao;
 import com.sojson.open.service.UserInfoService;
-import com.sojson.user.service.UDicCatalogService;
 
 @Service
-public class UserInfoServiceImpl {
-	// extends BaseMybatisDao<> implements UserInfoService
+public class UserInfoServiceImpl extends BaseMybatisDao<AppUserInfoMapper> implements UserInfoService{
+	
+	@Autowired
+	private AppUserInfoMapper appUserInfoMapper;
+	
+	/**
+	 * 根据手机号查询用户信息
+	 */
+	@Override
+	public AppUserInfo queryUserInfoByPhone(String phone){
+		return appUserInfoMapper.queryUserInfoByPhone(phone);
+	}
+
+	/**
+	 * 新增注册用户信息
+	 */
+	@Override
+	public void insertUserInfo(String phone, String regDevice) {
+		String uuid = UuidUtil.generateUuid();
+		Timestamp regTime = new Timestamp(System.currentTimeMillis());
+		
+		AppUserInfo user = new AppUserInfo();
+		user.setUuid(uuid);
+		user.setPhone(phone);
+		user.setRegDevice(regDevice);
+		user.setRegTime(regTime);
+		
+		appUserInfoMapper.insertUserInfo(user);
+	}
+
+	/**
+	 * 修改用户基础信息
+	 */
+	@Override
+	public boolean updateUserInfo(HttpServletRequest request,String phone) {
+		AppUserInfo user = appUserInfoMapper.queryUserInfoByPhone(phone);
+		String nickname=request.getParameter("nickname");
+		String email=request.getParameter("email");
+		String sex=request.getParameter("sex");
+		String degree=request.getParameter("degree");
+		String occupation=request.getParameter("occupation");
+		String portrait=request.getParameter("portrait"); //头像图片名称
+		//TODO 上传图片文件
+		user.setNickname(nickname);
+		user.setEmail(email);
+		user.setSex(sex);
+		user.setDegree(degree);
+		user.setOccupation(occupation);
+		user.setPortrait(portrait);
+		int rs = appUserInfoMapper.updateUserInfo(user);
+		if(rs>0)
+			return true;
+		return false;
+	}
 }

@@ -1,5 +1,6 @@
 package com.sojson.user.service.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,11 @@ public class UDicItemServiceImpl extends BaseMybatisDao<UDicItemMapper>  impleme
 	public UDicItem insertSelective(UDicItem record) {
 		uDicItemMapper.insertSelective(record);
 		return record;
+	}
+
+	@Override
+	public List<UDicItem> queryDicItemByCatalogId(String catalogId) {
+		return uDicItemMapper.queryDicItemByCatalogId(catalogId);
 	}
 
 }
