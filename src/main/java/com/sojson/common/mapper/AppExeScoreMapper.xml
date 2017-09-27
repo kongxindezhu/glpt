@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sojson.common.dao.AppExeScoreMapper" >
+  <!-- 返回所有的字段 -->
+  <resultMap id="BaseResultMap" type="com.sojson.common.model.AppExeScore" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <id column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <id column="cid" property="cid" jdbcType="BIGINT" />
+    <result column="time" property="time" jdbcType="DATE" javaType="java.util.Date" />
+    <result column="res" property="res" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id,uuid,qid,time,res
+  </sql>
+  
+  <!-- 根据课程类别统计用户信息的练习时长、积分-->
+  <select id="queryTotalTimeAndScore" parameterType="java.util.HashMap" resultMap="BaseResultMap" >
+  	SELECT uuid,SUM(curTime) AS totalTime,SUM(curScore) as totalScore FROM app_exe_score WHERE cid IN
+	(SELECT CSet.id FROM app_course CSet WHERE uuid=#{uuid,jdbcType=VARCHAR} AND 
+	CSet.pid IN (SELECT CType.id FROM app_course CType WHERE CType.pid=#{catalogId,jdbcType=INTEGER})) GROUP BY uuid;
+  </select>
+  
+
+  <!-- 查询用户的积分排名-->
+  <select id="queryUserRank" parameterType="java.lang.String" resultType="java.lang.Integer" >
+  	SELECT @rownum := @rownum + 1 AS rank
+	FROM (SELECT s.uuid,SUM(s.curScore) AS totalScore FROM app_exe_score s GROUP BY s.uuid ORDER BY totalScore DESC) AS obj,(SELECT @rownum := 0) AS rt 
+	WHERE obj.uuid=#{uuid};
+  </select>
+  
+  <!-- 根据课程集ID和用户主键查询记录-->
+  <!-- <select id="queryUserCourseSetById" parameterType="java.util.HashMap" resultMap="java.lang.Integer" >
+  	SELECT COUNT(DISTINCT(cid)) FROM app_exe_score WHERE cid = #{courseSetId,jdbcType=INTEGER} AND uuid=#{uuid,jdbcType=VARCHAR}
+  </select> -->
+  
+</mapper>

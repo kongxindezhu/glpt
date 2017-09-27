@@ -37,4 +37,8 @@
   <update id="updateUserInfo" parameterType="com.sojson.common.model.AppUserInfo" >
         update app_user_info set nickname=#{nickname},email=#{email},sex=#{sex},degree=#{degree},occupation=#{occupation},portrait=#{portrait} where phone=#{phone}
   </update>
+  
+  <select id="queryUserNum" resultType="java.lang.Integer" >
+  	select count(1) from app_user_info 
+  </select>
 </mapper>

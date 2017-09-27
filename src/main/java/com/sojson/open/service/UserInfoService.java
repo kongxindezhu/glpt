@@ -10,4 +10,6 @@ public interface UserInfoService {
 	public void insertUserInfo(String phone, String regDevice);
 
 	public boolean updateUserInfo(HttpServletRequest request, String phone);
+
+	public Integer queryUserNum();
 }

@@ -68,4 +68,12 @@ public class UserInfoServiceImpl extends BaseMybatisDao<AppUserInfoMapper> imple
 			return true;
 		return false;
 	}
+
+	/**
+	 * 查询用户数量
+	 */
+	@Override
+	public Integer queryUserNum() {
+		return appUserInfoMapper.queryUserNum();
+	}
 }

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sojson.common.dao.AppCourseMapper" >
+  <!-- 返回所有的字段 -->
+  <resultMap id="BaseResultMap" type="com.sojson.common.model.AppCourse" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="BIGINT" />
+    <result column="level" property="level" jdbcType="BIGINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    
+    <result column="audio" property="audio" jdbcType="VARCHAR" />
+    <result column="picOne" property="picOne" jdbcType="VARCHAR" />
+    <result column="picTwo" property="picTwo" jdbcType="VARCHAR" />
+    <result column="picThree" property="picThree" jdbcType="VARCHAR" />
+    <result column="picFour" property="picFour" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id,name,pid,level,remark,audio,picOne,picTwo,picThree,picFour
+  </sql>
+  
+  <!-- 根据层级查询列表-->
+  <select id="queryCourseByLevel" parameterType="java.lang.Long" resultMap="BaseResultMap" >
+  	select 
+    id,name,pid,level
+    from app_course
+    where level=#{level} 
+    order by id asc
+  </select>
+  
+  <!-- 查询某个课程类别下的课程集列表 -->
+  <select id="queryCourseSetByCatalogId" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+  	SELECT CSet.id FROM app_course CSet WHERE CSet.pid IN 
+	(SELECT CType.id FROM app_course CType WHERE CType.pid=#{catalogId})
+  </select>
+
+  <!-- 查询用户在某个课程类别下完成的课程集的数量 -->
+  <select id="queryUserCourseSetNum" parameterType="java.util.HashMap" resultType="java.lang.Integer" >
+  	SELECT COUNT(DISTINCT(cid)) FROM app_exe_score WHERE uuid=#{uuid,jdbcType=VARCHAR} AND cid IN 
+	(SELECT CSet.id FROM app_course CSet WHERE CSet.pid IN 
+	(SELECT CType.id FROM app_course CType WHERE CType.pid=#{catalogId,jdbcType=INTEGER}))
+  </select>
+  
+  <!-- 查询某个课程类别下的任务列表 -->
+  <select id="queryCourseTaskByPid" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+	SELECT * FROM app_course WHERE pid=#{catalogId} order by id asc
+  </select>
+  <!-- 查询某个任务类别下的课程集列表 -->
+  <select id="queryCourseSetByTaskId" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+  	SELECT id FROM app_course WHERE pid=#{taskId} 
+  </select>
+  <!-- 查询用户在某个任务类别下完成的课程集的数量 -->
+  <select id="queryUserCourseSetNumByTaskId" parameterType="java.util.HashMap" resultType="java.lang.Integer" >
+  	SELECT COUNT(DISTINCT(cid)) FROM app_exe_score WHERE uuid=#{uuid,jdbcType=VARCHAR} AND cid IN 
+	(SELECT CSet.id FROM app_course CSet WHERE CSet.pid = #{taskId,jdbcType=INTEGER})
+  </select>
+  
+  <!-- 查询某个任务类别下的课程集列表 -->
+  <select id="queryCourseSetByPid" parameterType="java.lang.Long" resultMap="BaseResultMap" >
+	select 
+    id,name,pid,level
+    from app_course
+    where pid=#{taskId} 
+    order by id asc
+  </select>
+  
+  <select id="queryUserCourseSetNumBySetId" parameterType="java.util.HashMap" resultType="java.lang.Integer" >
+  	SELECT COUNT(DISTINCT(cid)) FROM app_exe_score WHERE uuid=#{uuid,jdbcType=VARCHAR} AND cid = #{courseSetId,jdbcType=INTEGER} 
+  </select>
+  
+  <!-- 根据pid查询记录 -->
+  <select id="queryItemByPid" parameterType="java.lang.Long" resultMap="BaseResultMap" >
+	select 
+    id,name,pid,level
+    from app_course
+    where pid=#{pid} 
+    order by id asc
+  </select>
+  
+</mapper>

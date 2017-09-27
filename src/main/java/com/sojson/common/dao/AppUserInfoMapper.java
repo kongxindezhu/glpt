@@ -10,4 +10,6 @@ public interface AppUserInfoMapper {
 
 	public int updateUserInfo(AppUserInfo user);
 
+	public Integer queryUserNum();
+
 }

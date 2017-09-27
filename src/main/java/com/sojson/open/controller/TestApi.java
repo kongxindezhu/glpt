@@ -45,11 +45,35 @@ public class TestApi {
         System.out.println(sr1);*/
 		
 		
-		String url1 = "http://localhost:8080/glpt/open/app/user/completeUserInfo.shtml";
+		/*String url1 = "http://localhost:8080/glpt/open/app/user/completeUserInfo.shtml";
         String para1 = "phone=123&nickname=和静清寂&email=kongxindezhu@163.com&sex=1&degree=1";
         String sr1=HttpRequestUtil.sendPost(url1,para1,true);
-        System.out.println(sr1);
+        System.out.println(sr1);*/
         
+		/*String url1 = "http://localhost:8080/glpt/open/app/course/queryAllCatalogState.shtml";
+        String para1 = "uuid=e18107e1f1bc4cfb969ca9538c4e9004";
+        String sr1=HttpRequestUtil.sendGet(url1,para1);
+        System.out.println(sr1);*/
+		
+		/*String url1 = "http://localhost:8080/glpt/open/app/course/queryAllTaskState.shtml";
+        String para1 = "uuid=e18107e1f1bc4cfb969ca9538c4e9004&catalogId=1";
+        String sr1=HttpRequestUtil.sendGet(url1,para1);
+        System.out.println(sr1);*/
+		
+		/*String url1 = "http://localhost:8080/glpt/open/app/course/queryAllCourseSetState.shtml";
+        String para1 = "uuid=e18107e1f1bc4cfb969ca9538c4e9004&taskId=20";
+        String sr1=HttpRequestUtil.sendGet(url1,para1);
+        System.out.println(sr1);*/
+        
+        /*String url1 = "http://localhost:8080/glpt/open/app/course/queryAllCourseBlock.shtml";
+        String para1 = "courseSetId=1001";
+        String sr1=HttpRequestUtil.sendGet(url1,para1);
+        System.out.println(sr1);*/
+		
+		String url1 = "http://localhost:8080/glpt/open/app/course/queryAllCourse.shtml";
+        String para1 = "blockId=1000101";
+        String sr1=HttpRequestUtil.sendGet(url1,para1);
+        System.out.println(sr1);
     }
 
 }
