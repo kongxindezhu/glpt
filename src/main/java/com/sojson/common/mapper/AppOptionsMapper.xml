@@ -4,8 +4,8 @@
   <!-- 返回所有的字段 -->
   <resultMap id="BaseResultMap" type="com.sojson.common.model.AppOptions" >
     <id column="id" property="id" jdbcType="BIGINT" />
-    <id column="qid" property="qid" jdbcType="BIGINT" />
-    <id column="seq" property="seq" jdbcType="VARCHAR" />
+    <result column="qid" property="qid" jdbcType="BIGINT" />
+    <result column="seq" property="seq" jdbcType="VARCHAR" />
     <result column="content" property="content" jdbcType="VARCHAR" />
   </resultMap>
   
@@ -13,13 +13,13 @@
     id,qid,seq,content
   </sql>
   
-  <!-- 根据手机号码查询用户信息-->
-  <!-- <select id="queryUserInfoByPhone" parameterType="string" resultType="com.sojson.common.model.AppUserInfo" >
+  <!-- 根据问题ID查询选项列表-->
+  <select id="queryOptionsByQid" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
   	select 
     <include refid="Base_Column_List" />
-    from app_user_info 
-    where phone=#{phone}
-  </select> -->
+    from app_options 
+    where qid=#{qid}
+  </select> 
   
 
   

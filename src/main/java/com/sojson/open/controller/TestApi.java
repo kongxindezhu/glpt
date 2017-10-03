@@ -70,10 +70,16 @@ public class TestApi {
         String sr1=HttpRequestUtil.sendGet(url1,para1);
         System.out.println(sr1);*/
 		
-		String url1 = "http://localhost:8080/glpt/open/app/course/queryAllCourse.shtml";
+		/*String url1 = "http://localhost:8080/glpt/open/app/course/queryAllCourse.shtml";
         String para1 = "blockId=1000101";
         String sr1=HttpRequestUtil.sendGet(url1,para1);
+        System.out.println(sr1);*/
+		
+		String url1 = "http://localhost:8080/glpt/open/app/questions/queryAllQuestions.shtml";
+        String para1 = "";
+        String sr1=HttpRequestUtil.sendGet(url1,para1);
         System.out.println(sr1);
+        
     }
 
 }
