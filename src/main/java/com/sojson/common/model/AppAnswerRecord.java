@@ -1,6 +1,6 @@
 package com.sojson.common.model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class AppAnswerRecord {
 	/***自增主键*/
@@ -10,9 +10,11 @@ public class AppAnswerRecord {
 	/***问题表主键*/
 	private Integer qid;
 	/**开始答题时间，精确到秒**/
-	private Date datetime;
+	private Timestamp time;
 	/**答案是否正确：1正确0错误**/
 	private String res;
+	
+	private String datetimeStr; //答题时间字符串
 	
 	public Integer getId() {
 		return id;
@@ -32,17 +34,23 @@ public class AppAnswerRecord {
 	public void setQid(Integer qid) {
 		this.qid = qid;
 	}
-	public Date getDatetime() {
-		return datetime;
-	}
-	public void setDatetime(Date datetime) {
-		this.datetime = datetime;
-	}
 	public String getRes() {
 		return res;
 	}
+	public Timestamp getTime() {
+		return time;
+	}
+	public void setTime(Timestamp time) {
+		this.time = time;
+	}
 	public void setRes(String res) {
 		this.res = res;
+	}
+	public String getDatetimeStr() {
+		return datetimeStr;
+	}
+	public void setDatetimeStr(String datetimeStr) {
+		this.datetimeStr = datetimeStr;
 	}
 	
 }

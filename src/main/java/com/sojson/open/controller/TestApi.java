@@ -1,5 +1,14 @@
 package com.sojson.open.controller;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+
+import net.sf.json.JSONArray;
+
+import com.sojson.common.model.AppAnswerRecord;
 import com.sojson.common.utils.HttpRequestUtil;
 
 public class TestApi {
@@ -75,11 +84,48 @@ public class TestApi {
         String sr1=HttpRequestUtil.sendGet(url1,para1);
         System.out.println(sr1);*/
 		
-		String url1 = "http://localhost:8080/glpt/open/app/questions/queryAllQuestions.shtml";
+		/*String url1 = "http://localhost:8080/glpt/open/app/questions/queryAllQuestions.shtml";
         String para1 = "";
         String sr1=HttpRequestUtil.sendGet(url1,para1);
-        System.out.println(sr1);
+        System.out.println(sr1);*/
         
+        //list--》》json字符串
+		/**Timestamp ts = new Timestamp(System.currentTimeMillis());   
+        String datetimeStr = "";   
+        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");   
+        try {   
+        	datetimeStr = sdf.format(ts);   
+        } catch (Exception e) {   
+            e.printStackTrace();   
+        }  
+        
+        List<AppAnswerRecord> list = new ArrayList<AppAnswerRecord>();
+        AppAnswerRecord item0=new AppAnswerRecord();
+        item0.setQid(1);
+        item0.setUuid("e18107e1f1bc4cfb969ca9538c4e9004");
+        item0.setDatetimeStr(datetimeStr);
+        item0.setRes("1");
+        
+        AppAnswerRecord item1=new AppAnswerRecord();
+        item1.setQid(2);
+        item1.setUuid("e18107e1f1bc4cfb969ca9538c4e9004");
+        item1.setDatetimeStr(datetimeStr);
+        item1.setRes("0");
+        
+        list.add(item0);
+        list.add(item1);
+        
+        JSONArray jsonArray = JSONArray.fromObject(list);
+        String jsonStr = jsonArray.toString();
+        System.out.println(jsonStr);
+
+        String url1 = "http://localhost:8080/glpt/open/app/answerRecord/insertAllAnswers.shtml";
+        String para1 = "recordListJson="+jsonStr;
+        String sr1=HttpRequestUtil.sendPost(url1,para1,true);
+        System.out.println(sr1);
+        **/
+		
+		
     }
 
 }

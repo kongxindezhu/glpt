@@ -6,7 +6,7 @@
     <id column="id" property="id" jdbcType="BIGINT" />
     <id column="uuid" property="uuid" jdbcType="VARCHAR" />
     <id column="qid" property="qid" jdbcType="BIGINT" />
-    <result column="time" property="time" jdbcType="DATE" javaType="java.util.Date" />
+    <result column="time" property="time" jdbcType="TIMESTAMP"/>
     <result column="res" property="res" jdbcType="VARCHAR" />
   </resultMap>
   
@@ -21,7 +21,21 @@
     from app_user_info 
     where phone=#{phone}
   </select> -->
-  
+  <insert id ="insertBatch" parameterType="java.util.List" >
+      <selectKey resultType ="java.lang.Integer" keyProperty= "id" order= "AFTER">
+          SELECT LAST_INSERT_ID()
+      </selectKey >
+      insert into app_answer_record(uuid,qid,time,res)
+      values
+       <foreach collection ="list" item="AppAnswerRecord" index= "index" separator =",">
+           (
+           #{AppAnswerRecord.uuid},
+           #{AppAnswerRecord.qid},
+           #{AppAnswerRecord.time},
+           #{AppAnswerRecord.res}
+           )
+       </foreach >
+   </insert >
 
   
   
