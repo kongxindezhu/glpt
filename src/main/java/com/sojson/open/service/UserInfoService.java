@@ -12,4 +12,8 @@ public interface UserInfoService {
 	public boolean updateUserInfo(HttpServletRequest request, String phone);
 
 	public Integer queryUserNum();
+
+	public boolean updateUserSealInfo(HttpServletRequest request, String uuid);
+
+	public AppUserInfo queryUserInfoByUuid(String uuid);
 }

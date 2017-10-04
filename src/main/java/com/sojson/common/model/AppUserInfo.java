@@ -54,6 +54,23 @@ public class AppUserInfo {
 	 */
 	private Timestamp regTime;
 
+	/**
+	 * 个人印章字体类型
+	 */
+	private String sealFontType;
+	/**
+	 * 个人印章类型：阴章、阳章
+	 */
+	private String sealFontStyle;
+	/**
+	 * 个人印章内容
+	 */
+	private String sealText;
+	/**
+	 * 个人印章图片
+	 */
+	private String sealPic;
+	
 	public String getUuid() {
 		return uuid;
 	}
@@ -132,6 +149,38 @@ public class AppUserInfo {
 
 	public void setRegTime(Timestamp regTime) {
 		this.regTime = regTime;
+	}
+
+	public String getSealFontType() {
+		return sealFontType;
+	}
+
+	public void setSealFontType(String sealFontType) {
+		this.sealFontType = sealFontType;
+	}
+
+	public String getSealFontStyle() {
+		return sealFontStyle;
+	}
+
+	public void setSealFontStyle(String sealFontStyle) {
+		this.sealFontStyle = sealFontStyle;
+	}
+
+	public String getSealText() {
+		return sealText;
+	}
+
+	public void setSealText(String sealText) {
+		this.sealText = sealText;
+	}
+
+	public String getSealPic() {
+		return sealPic;
+	}
+
+	public void setSealPic(String sealPic) {
+		this.sealPic = sealPic;
 	}
 	
 }

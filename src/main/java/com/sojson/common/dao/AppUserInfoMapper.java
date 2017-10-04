@@ -12,4 +12,8 @@ public interface AppUserInfoMapper {
 
 	public Integer queryUserNum();
 
+	public AppUserInfo queryUserInfoByUuid(String uuid);
+
+	public int updateUserSealInfo(AppUserInfo user);
+
 }

@@ -76,4 +76,29 @@ public class UserInfoServiceImpl extends BaseMybatisDao<AppUserInfoMapper> imple
 	public Integer queryUserNum() {
 		return appUserInfoMapper.queryUserNum();
 	}
+
+	/**
+	 * 更新用户印章信息
+	 */
+	@Override
+	public boolean updateUserSealInfo(HttpServletRequest request, String uuid) {
+		AppUserInfo user = appUserInfoMapper.queryUserInfoByUuid(uuid);
+		String sealFontType=request.getParameter("sealFontType");
+		String sealFontStyle=request.getParameter("sealFontStyle");
+		String sealText=request.getParameter("sealText");
+		String sealPic=request.getParameter("sealPic");
+		user.setSealFontType(sealFontType);
+		user.setSealFontStyle(sealFontStyle);
+		user.setSealText(sealText);
+		user.setSealPic(sealPic);
+		int rs = appUserInfoMapper.updateUserSealInfo(user);
+		if(rs>0)
+			return true;
+		return false;
+	}
+
+	@Override
+	public AppUserInfo queryUserInfoByUuid(String uuid) {
+		return appUserInfoMapper.queryUserInfoByUuid(uuid);
+	}
 }

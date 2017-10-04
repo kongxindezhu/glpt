@@ -212,4 +212,46 @@ public class UserInfoController extends BaseController{
 		obj.put("msg","成功修改用户信息！");
 		return obj;
 	}
+	
+	/**
+	 * 补全用户印章信息
+	 * @param request
+	 * @param response
+	 * @param phone
+	 * @return
+	 */
+	@RequestMapping(value="user/completeUserSealInfo",method=RequestMethod.POST)
+	public @ResponseBody JSONObject updateUserSealInfo(HttpServletRequest request,HttpServletResponse response,
+			@RequestParam(value="uuid",required=true)String uuid){
+		JSONObject obj = new JSONObject();
+		
+		JSONObject data = new JSONObject();
+		boolean rs = userInfoService.updateUserSealInfo(request,uuid);
+		data.put("rs", rs);
+		
+		obj.put("data", data);
+		obj.put("rc", 0);
+		obj.put("msg","成功修改用户印章信息！");
+		return obj;
+	}
+	
+	/**
+	 * 查询用户印章信息
+	 * @param request
+	 * @param response
+	 * @param phone
+	 * @return
+	 */
+	@RequestMapping(value="user/queryUserSealInfo",method=RequestMethod.POST)
+	public @ResponseBody JSONObject queryUserSealInfo(HttpServletRequest request,HttpServletResponse response,
+			@RequestParam(value="uuid",required=true)String uuid){
+		JSONObject obj = new JSONObject();
+		
+		JSONObject data = new JSONObject();
+		AppUserInfo sealInfo = userInfoService.queryUserInfoByUuid(uuid);
+		data.put("sealInfo", sealInfo);
+		
+		obj.put("data", data);
+		return obj;
+	}
 }

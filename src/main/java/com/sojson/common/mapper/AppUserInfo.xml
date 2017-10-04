@@ -13,6 +13,11 @@
     <result column="portrait" property="portrait" jdbcType="VARCHAR" />
     <result column="regDevice" property="regDevice" jdbcType="VARCHAR" />
     <result column="regTime" property="regTime" jdbcType="TIMESTAMP" />
+    
+    <result column="sealFontType" property="sealFontType" jdbcType="VARCHAR" />
+    <result column="sealFontStyle" property="sealFontStyle" jdbcType="VARCHAR" />
+    <result column="sealText" property="sealText" jdbcType="VARCHAR" />
+    <result column="sealPic" property="sealPic" jdbcType="VARCHAR" />
   </resultMap>
   
   <sql id="Base_Column_List" >
@@ -33,7 +38,7 @@
              values(#{uuid},#{phone},#{regDevice},#{regTime})  
   </insert>
   
-  <!-- 补全用户信息 -->
+  <!-- 补全用户基础信息 -->
   <update id="updateUserInfo" parameterType="com.sojson.common.model.AppUserInfo" >
         update app_user_info set nickname=#{nickname},email=#{email},sex=#{sex},degree=#{degree},occupation=#{occupation},portrait=#{portrait} where phone=#{phone}
   </update>
@@ -41,4 +46,14 @@
   <select id="queryUserNum" resultType="java.lang.Integer" >
   	select count(1) from app_user_info 
   </select>
+  
+  <!-- 根据用户UUID查询用户信息-->
+  <select id="queryUserInfoByUuid" parameterType="string" resultType="com.sojson.common.model.AppUserInfo" >
+  	select * from app_user_info where uuid=#{uuid}
+  </select>
+  
+  <!-- 补全用户印章信息 -->
+  <update id="updateUserSealInfo" parameterType="com.sojson.common.model.AppUserInfo" >
+        update app_user_info set sealFontType=#{sealFontType},sealFontStyle=#{sealFontStyle},sealText=#{sealText},sealPic=#{sealPic} where uuid=#{uuid}
+  </update>
 </mapper>
