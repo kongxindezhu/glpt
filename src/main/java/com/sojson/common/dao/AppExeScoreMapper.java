@@ -10,6 +10,8 @@ public interface AppExeScoreMapper {
 
 	int queryUserRank(String uuid);
 
+	int insertExeScore(AppExeScore appExeScore);
+
 	/*int queryUserCourseSetById(HashMap<String, Object> params);*/
 
 }

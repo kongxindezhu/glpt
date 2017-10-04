@@ -6,7 +6,7 @@
     <id column="id" property="id" jdbcType="BIGINT" />
     <id column="uuid" property="uuid" jdbcType="VARCHAR" />
     <id column="cid" property="cid" jdbcType="BIGINT" />
-    <result column="time" property="time" jdbcType="DATE" javaType="java.util.Date" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
     <result column="res" property="res" jdbcType="VARCHAR" />
   </resultMap>
   
@@ -33,5 +33,48 @@
   <!-- <select id="queryUserCourseSetById" parameterType="java.util.HashMap" resultMap="java.lang.Integer" >
   	SELECT COUNT(DISTINCT(cid)) FROM app_exe_score WHERE cid = #{courseSetId,jdbcType=INTEGER} AND uuid=#{uuid,jdbcType=VARCHAR}
   </select> -->
+  <insert id="insertExeScore" useGeneratedKeys="true" keyProperty="id" parameterType="com.sojson.common.model.AppExeScore" >
+    insert into app_exe_score
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="uuid != null" >
+        uuid,
+      </if>
+      <if test="cid != null" >
+        cid,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="curScore != null" >
+        curScore,
+      </if>
+      <if test="curTime != null" >
+        curTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="uuid != null" >
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null" >
+        #{cid,jdbcType=BIGINT},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="curScore != null" >
+        #{curScore,jdbcType=BIGINT},
+      </if>
+      <if test="curTime != null" >
+        #{curTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
   
 </mapper>

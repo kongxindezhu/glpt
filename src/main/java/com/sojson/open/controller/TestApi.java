@@ -3,12 +3,10 @@ package com.sojson.open.controller;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 
-import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
-import com.sojson.common.model.AppAnswerRecord;
+import com.sojson.common.model.AppExeScore;
 import com.sojson.common.utils.HttpRequestUtil;
 
 public class TestApi {
@@ -125,7 +123,32 @@ public class TestApi {
         System.out.println(sr1);
         **/
 		
-		
+		/**
+		Timestamp ts = new Timestamp(System.currentTimeMillis());   
+        String datetimeStr = "";   
+        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");   
+        try {   
+        	datetimeStr = sdf.format(ts);   
+        } catch (Exception e) {   
+            e.printStackTrace();   
+        }  
+        
+        AppExeScore item0=new AppExeScore();
+        item0.setCid(1001);
+        item0.setUuid("e18107e1f1bc4cfb969ca9538c4e9004");
+        item0.setDatetimeStr(datetimeStr);
+        item0.setCurTime(12458);
+        item0.setCurScore(67);
+        
+        JSONObject obj = JSONObject.fromObject(item0);
+        String jsonStr = obj.toString();
+        System.out.println(jsonStr);
+        
+        String url1 = "http://localhost:8080/glpt/open/app/exeScore/insertExeScore.shtml";
+        String para1 = "recordJson="+jsonStr;
+        String sr1=HttpRequestUtil.sendPost(url1,para1,true);
+        System.out.println(sr1);
+        **/
     }
 
 }

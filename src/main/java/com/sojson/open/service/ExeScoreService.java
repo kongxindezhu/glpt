@@ -8,6 +8,8 @@ public interface ExeScoreService {
 
 	int queryUserRank(String uuid);
 
+	int insertExeScore(AppExeScore item);
+
 	/*int queryUserCourseSetById(int courseSetId, String uuid);*/
 
 }

@@ -1,6 +1,6 @@
 package com.sojson.common.model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class AppExeScore {
 	/***id*/
@@ -10,7 +10,7 @@ public class AppExeScore {
 	/***课程集主键cid*/
 	private Integer cid;
 	/**开始答题时间，精确到秒**/
-	private Date datetime;
+	private Timestamp time;
 	/***本次练习得分*/
 	private Integer curScore;
 	/***本次练习时长*/
@@ -18,6 +18,8 @@ public class AppExeScore {
 	
 	private Integer totalTime; //用户在当前课程大类下的累计练习时长
 	private Integer totalScore; //用户在当前课程大类下的累计得分
+	
+	private String datetimeStr; //开始答题时间字符串
 	
 	public Integer getId() {
 		return id;
@@ -37,11 +39,11 @@ public class AppExeScore {
 	public void setCid(Integer cid) {
 		this.cid = cid;
 	}
-	public Date getDatetime() {
-		return datetime;
+	public Timestamp getTime() {
+		return time;
 	}
-	public void setDatetime(Date datetime) {
-		this.datetime = datetime;
+	public void setTime(Timestamp time) {
+		this.time = time;
 	}
 	public Integer getCurScore() {
 		return curScore;
@@ -66,6 +68,12 @@ public class AppExeScore {
 	}
 	public void setTotalScore(Integer totalScore) {
 		this.totalScore = totalScore;
+	}
+	public String getDatetimeStr() {
+		return datetimeStr;
+	}
+	public void setDatetimeStr(String datetimeStr) {
+		this.datetimeStr = datetimeStr;
 	}
 	
 }

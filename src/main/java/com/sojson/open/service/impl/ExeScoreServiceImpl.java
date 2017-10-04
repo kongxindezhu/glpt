@@ -1,5 +1,6 @@
 package com.sojson.open.service.impl;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,20 @@ public class ExeScoreServiceImpl extends BaseMybatisDao<AppExeScoreMapper> imple
 	@Override
 	public int queryUserRank(String uuid) {
 		return appExeScoreMapper.queryUserRank(uuid);
+	}
+
+	@Override
+	public int insertExeScore(AppExeScore item) {
+		Timestamp ts = new Timestamp(System.currentTimeMillis());   
+        String tsStr = item.getDatetimeStr();   
+        try {   
+            ts = Timestamp.valueOf(tsStr);   
+            System.out.println(ts);   
+        } catch (Exception e) {   
+            e.printStackTrace();   
+        } 
+		item.setTime(ts);
+		return appExeScoreMapper.insertExeScore(item);
 	}
 
 	/*@Override
