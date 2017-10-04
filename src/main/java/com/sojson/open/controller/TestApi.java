@@ -149,6 +149,22 @@ public class TestApi {
         String sr1=HttpRequestUtil.sendPost(url1,para1,true);
         System.out.println(sr1);
         **/
+		
+		/*String url1 = "http://localhost:8080/glpt/open/app/exeScore/querySumUserInfo.shtml";
+        String para1 = "uuid=e18107e1f1bc4cfb969ca9538c4e9004&taskId=20";
+        String sr1=HttpRequestUtil.sendGet(url1,para1);
+        System.out.println(sr1);*/
+		
+		String url1 = "http://localhost:8080/glpt/open/app/exeScore/queryDateScoreLine.shtml";
+        String para1 = "uuid=e18107e1f1bc4cfb969ca9538c4e9004";
+        String sr1=HttpRequestUtil.sendGet(url1,para1);
+        System.out.println(sr1);
+        
+        /*String url1 = "http://localhost:8080/glpt/open/app/exeScore/queryDateTimeLine.shtml";
+        String para1 = "uuid=e18107e1f1bc4cfb969ca9538c4e9004";
+        String sr1=HttpRequestUtil.sendGet(url1,para1);
+        System.out.println(sr1);*/
+        
     }
 
 }

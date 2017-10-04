@@ -2,6 +2,7 @@ package com.sojson.open.service.impl;
 
 import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,21 @@ public class ExeScoreServiceImpl extends BaseMybatisDao<AppExeScoreMapper> imple
         } 
 		item.setTime(ts);
 		return appExeScoreMapper.insertExeScore(item);
+	}
+
+	@Override
+	public int queryUserSumTime(String uuid) {
+		return appExeScoreMapper.queryUserSumTime(uuid);
+	}
+
+	@Override
+	public List<AppExeScore> queryDateScoreData(String uuid) {
+		return appExeScoreMapper.queryDateScoreData(uuid);
+	}
+
+	@Override
+	public List<AppExeScore> queryDateTimeData(String uuid) {
+		return appExeScoreMapper.queryDateTimeData(uuid);
 	}
 
 	/*@Override

@@ -77,4 +77,19 @@
     </trim>
   </insert>
   
+  <!-- 统计用户所有课程的练习总时长-->
+  <select id="queryUserSumTime" parameterType="string" resultType="java.lang.Integer" >
+  	SELECT SUM(curTime) FROM app_exe_score WHERE uuid=#{uuid,jdbcType=VARCHAR};
+  </select>
+  
+  <!-- 按日统计用户信息的Map<练习日期,练习积分>-->
+  <select id="queryDateScoreData" parameterType="string" resultMap="BaseResultMap" >
+  	SELECT date_format(time,'%Y-%m-%d') as dateTimeStr,SUM(curScore) AS totalScore FROM app_exe_score GROUP BY dateTimeStr asc;
+  </select>
+  
+  <!-- 按日统计用户信息的Map<练习日期,练习时长>-->
+  <select id="queryDateTimeData" parameterType="string" resultMap="BaseResultMap" >
+  	SELECT date_format(time,'%Y-%m-%d') as dateTimeStr,SUM(curTime) AS totalTime FROM app_exe_score GROUP BY dateTimeStr asc;
+  </select>
+  
 </mapper>
