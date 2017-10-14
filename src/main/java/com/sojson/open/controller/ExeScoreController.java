@@ -1,6 +1,5 @@
 package com.sojson.open.controller;
 
-import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sojson.common.model.AppCourse;
 import com.sojson.common.model.AppExeScore;
 import com.sojson.common.utils.JsonUtils;
 import com.sojson.open.service.ExeScoreService;
@@ -153,13 +151,13 @@ public class ExeScoreController {
 		//计算用户的时间-积分曲线
 		List<AppExeScore> dateTimeList = exeScoreService.queryDateTimeData(uuid);
 		//获取需要的字段<datetimeStr,totalTime>
-		List<HashMap<String,Integer>> dateScoreData = new ArrayList<HashMap<String,Integer>>();
+		List<HashMap<String,Integer>> dateTimeData = new ArrayList<HashMap<String,Integer>>();
 		for(AppExeScore item : dateTimeList){
 			HashMap<String,Integer> map = new HashMap<String,Integer>();
 			map.put(item.getDatetimeStr(), item.getTotalTime());
-			dateScoreData.add(map);
+			dateTimeData.add(map);
 		}
-		data.put("dateScoreData", dateScoreData);
+		data.put("dateTimeData", dateTimeData);
 		obj.put("data", data);
 		return obj;
 	}

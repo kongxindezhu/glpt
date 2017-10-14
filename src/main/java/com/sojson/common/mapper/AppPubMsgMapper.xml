@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sojson.common.dao.AppPubMsgMapper" >
+  <!-- 返回所有的字段 -->
+  <resultMap id="BaseResultMap" type="com.sojson.common.model.AppPubMsg" >
+    <id column="pubId" property="pubId" jdbcType="BIGINT" />
+    <result column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="pubWord" property="pubWord" jdbcType="VARCHAR" />
+    <result column="pubTime" property="pubTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    pubId,uuid,pubWord,pubTime
+  </sql>
+  
+  <insert id="insertMsg" useGeneratedKeys="true" keyProperty="pubId" parameterType="com.sojson.common.model.AppPubMsg" >
+    insert into app_pub_msg
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uuid != null" >
+        uuid,
+      </if>
+      <if test="pubWord != null" >
+        pubWord,
+      </if>
+      <if test="pubTime != null" >
+        pubTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uuid != null" >
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="pubWord != null" >
+        #{pubWord,jdbcType=VARCHAR},
+      </if>
+      <if test="pubTime != null" >
+        #{pubTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除记录 -->
+  <delete id="deleteMsg" parameterType="java.lang.Integer" >
+    delete from app_pub_msg
+    where pubId = #{pubId,jdbcType=BIGINT}
+  </delete>
+  
+</mapper>

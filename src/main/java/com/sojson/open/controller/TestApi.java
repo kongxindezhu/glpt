@@ -88,7 +88,7 @@ public class TestApi {
         System.out.println(sr1);*/
         
         //list--》》json字符串
-		/**Timestamp ts = new Timestamp(System.currentTimeMillis());   
+		/*Timestamp ts = new Timestamp(System.currentTimeMillis());   
         String datetimeStr = "";   
         DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");   
         try {   
@@ -120,11 +120,11 @@ public class TestApi {
         String url1 = "http://localhost:8080/glpt/open/app/answerRecord/insertAllAnswers.shtml";
         String para1 = "recordListJson="+jsonStr;
         String sr1=HttpRequestUtil.sendPost(url1,para1,true);
-        System.out.println(sr1);
-        **/
+        System.out.println(sr1);*/
+        
 		
-		/**
-		Timestamp ts = new Timestamp(System.currentTimeMillis());   
+		
+		/*Timestamp ts = new Timestamp(System.currentTimeMillis());   
         String datetimeStr = "";   
         DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");   
         try {   
@@ -147,8 +147,8 @@ public class TestApi {
         String url1 = "http://localhost:8080/glpt/open/app/exeScore/insertExeScore.shtml";
         String para1 = "recordJson="+jsonStr;
         String sr1=HttpRequestUtil.sendPost(url1,para1,true);
-        System.out.println(sr1);
-        **/
+        System.out.println(sr1);*/
+        
 		
 		/*String url1 = "http://localhost:8080/glpt/open/app/exeScore/querySumUserInfo.shtml";
         String para1 = "uuid=e18107e1f1bc4cfb969ca9538c4e9004&taskId=20";
@@ -179,6 +179,16 @@ public class TestApi {
         String sr1=HttpRequestUtil.sendPost(url1,para1,true);
         System.out.println(sr1);*/
         
+		Timestamp ts = new Timestamp(System.currentTimeMillis());
+		String url1 = "http://localhost:8080/glpt/open/app/pubMsg/insertMsg.shtml";
+        String para1 = "uuid=e18107e1f1bc4cfb969ca9538c4e9004&pubWord=我的说说&pubTime="+ts;
+        String sr1=HttpRequestUtil.sendPost(url1,para1,true);
+        System.out.println(sr1);
+		
+		/*String url1 = "http://localhost:8080/glpt/open/app/pubMsg/deleteMsg.shtml";
+        String para1 = "pubId=1";
+        String sr1=HttpRequestUtil.sendGet(url1,para1);
+        System.out.println(sr1);*/
     }
 
 }
